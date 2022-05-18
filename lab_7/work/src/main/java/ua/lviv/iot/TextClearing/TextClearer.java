@@ -16,11 +16,11 @@ public class TextClearer{
             return(new String(Files.readAllBytes(Paths.get(path))));
         }catch(IOException e){
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
-    public boolean areStringContainsQuestion(String str){
+    public boolean isStringContainsQuestion(String str){
         char[] arr = str.toCharArray();
         for (char el: arr) {
             if(el == '?'){
@@ -33,11 +33,11 @@ public class TextClearer{
     public boolean howOften(String word, String str){
         Pattern pattern = Pattern.compile(word + " " + word + " " + word + ".*+$?");
         Matcher matcher = pattern.matcher(str);
-
+        
         return  matcher.find();
     }
 
-    public void clear(String path, String word){
+    public void clear(String path, String word) throws IOException{
         String output = "";
         List<String> arr = new ArrayList<>();
 
@@ -52,7 +52,7 @@ public class TextClearer{
         }
 
         for (int j = 0; j < arr.size(); j++) {
-           if(areStringContainsQuestion(arr.get(j))){
+           if(isStringContainsQuestion(arr.get(j))){
                if(howOften(word,arr.get(j))){
                    arr.remove(j);
                }
@@ -60,12 +60,8 @@ public class TextClearer{
         }
 
         for(String el1: arr) output += el1;
-        try{
-            FileWriter writer = new FileWriter("clearText.txt");
+        try(FileWriter writer = new FileWriter("clearText.txt");){
             writer.write(output);
-            writer.close();
-        }catch (IOException e){
-            e.printStackTrace();
         }
     }
 }

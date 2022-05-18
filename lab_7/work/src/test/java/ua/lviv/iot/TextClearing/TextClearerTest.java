@@ -19,8 +19,8 @@ public class TextClearerTest extends TestCase {
     public void testTxtFileRider() {
     }
 
-    public void testAreStringContainsQuestion(){
-        assertTrue(textClearer.areStringContainsQuestion("agdf agdf?"));
+    public void testIsStringContainsQuestion(){
+        assertTrue(textClearer.isStringContainsQuestion("agdf agdf?"));
     }
 
     public void testHowOften(){
@@ -28,7 +28,11 @@ public class TextClearerTest extends TestCase {
     }
 
     public void testClear() {
-        textClearer.clear("/Users/sasaminaev/Desktop/codits/java/Labs/lab_3 копія 2/work/text.txt", "fiat");
+        try{
+            textClearer.clear("/Users/sasaminaev/Desktop/codits/java/Labs/lab_3 копія 2/work/text.txt", "fiat");
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
         String path = "/Users/sasaminaev/Desktop/codits/java/Labs/lab_3 копія 2/work/clearText.txt";
         String path1 = "/Users/sasaminaev/Desktop/codits/java/Labs/lab_3 копія 2/work/clearExample.txt";
         try{
